@@ -20,9 +20,14 @@ public class Main {
             stockSymbols[i] = scanner.nextLine();
         }
 
+        System.out.print("Enter the frequency in seconds between prints: ");
+        int frequencyInSeconds = scanner.nextInt();
+
+        Double[] previousPrices = new Double[numberOfStocks];
+
         int i = 0;
         while (i != 1) {
-            String[] stockPrices = new String[numberOfStocks];
+            Double[] stockPrices = new Double[numberOfStocks];
             
             for (int j = 0; j < numberOfStocks; j++) {
                 String stockSymbol = stockSymbols[j];
@@ -37,19 +42,35 @@ public class Main {
                 var matcher = Pattern.compile("\"c\":(\\d+(\\.\\d+)?)").matcher(response);
 
                 if (matcher.find()) {
-                    stockPrices[j] = matcher.group(1);
+                    stockPrices[j] = Double.parseDouble(matcher.group(1));
                 } else {
-                    stockPrices[j] = "N/A";
+                    stockPrices[j] = null;
                 }
             }
 
             for (int j = 0; j < numberOfStocks; j++) {
-                System.out.println("Current price of stock '%s' is %s USD".formatted(stockSymbols[j], stockPrices[j]));
+                if (stockPrices[j] != null) {
+                    String colorCode;
+                    if (previousPrices[j] == null) {
+                        colorCode = "\u001B[0m"; // No color for the first print
+                    } else if (stockPrices[j] > previousPrices[j]) {
+                        colorCode = "\u001B[32m"; // Green
+                    } else if (stockPrices[j].equals(previousPrices[j])) {
+                        colorCode = "\u001B[33m"; // Yellow
+                    } else {
+                        colorCode = "\u001B[31m"; // Red
+                    }
+
+                    System.out.println(String.format("Current price of stock '%s' is %s%s USD\u001B[0m", stockSymbols[j], colorCode, stockPrices[j]));
+                    previousPrices[j] = stockPrices[j];
+                } else {
+                    System.out.println(String.format("Current price of stock '%s' is N/A", stockSymbols[j]));
+                }
             }
 
             try {
-                // Wait for 3 seconds (3000 milliseconds)
-                Thread.sleep(3000);
+                // Wait for the user-defined frequency
+                Thread.sleep(frequencyInSeconds * 1000);
                 System.out.println();
             } catch (InterruptedException e) {
                 // Handle the exception if the sleep is interrupted
