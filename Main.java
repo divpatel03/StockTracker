@@ -63,9 +63,7 @@ public class Main {
                     } else {
                         colorCode = "\u001B[31m"; // Red
                     }
-                    System.out.println("-----------------------------------");
                     System.out.println(String.format("Current price of stock '%s' is %s%s USD\u001B[0m", stockSymbols[j], colorCode, stockPrices[j]));
-                    System.out.println("-----------------------------------");
                     previousPrices[j] = stockPrices[j];
                 } else {
                     System.out.println(String.format("Current price of stock '%s' is N/A", stockSymbols[j]));
