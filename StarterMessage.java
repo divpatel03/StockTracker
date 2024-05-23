@@ -6,6 +6,6 @@ public class StarterMessage {
         System.out.println(purple+ "-----------------------------------");
         System.out.println("Welcome to StockTracker");
         System.out.println("Your Personal Investment Profile");
-        System.out.println(purple+ "-----------------------------------" +reset);
+        System.out.println("-----------------------------------" +reset);
     }
 }
