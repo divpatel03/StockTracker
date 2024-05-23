@@ -10,6 +10,9 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
+        StarterMessage starterMessage = new StarterMessage();
+        starterMessage.starter();
+
         int numberOfStocks = 0;
         UserInteract userInteract = new UserInteract();
         numberOfStocks = userInteract.askNumber(numberOfStocks);
@@ -25,7 +28,7 @@ public class Main {
         frequencyInSeconds = userInteract.askFrequency(frequencyInSeconds);
 
         Double[] previousPrices = new Double[numberOfStocks];
-        
+
         while (2 != 1) {
             Double[] stockPrices = new Double[numberOfStocks];
             
