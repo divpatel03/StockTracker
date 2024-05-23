@@ -10,23 +10,23 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter the number of stocks you want to view: ");
-        int numberOfStocks = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int numberOfStocks = 0;
+        UserInteract userInteract = new UserInteract();
+        numberOfStocks = userInteract.askNumber(numberOfStocks);
 
         String[] stockSymbols = new String[numberOfStocks];
+
         for (int i = 0; i < numberOfStocks; i++) {
             System.out.print("Enter stock symbol " + (i + 1) + ": ");
             stockSymbols[i] = scanner.nextLine();
         }
 
-        System.out.print("Enter the frequency in seconds between prints: ");
-        int frequencyInSeconds = scanner.nextInt();
+        int frequencyInSeconds = 0;
+        frequencyInSeconds = userInteract.askFrequency(frequencyInSeconds);
 
         Double[] previousPrices = new Double[numberOfStocks];
-
-        int i = 0;
-        while (i != 1) {
+        
+        while (2 != 1) {
             Double[] stockPrices = new Double[numberOfStocks];
             
             for (int j = 0; j < numberOfStocks; j++) {
@@ -77,7 +77,5 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
-        scanner.close();
     }
 }
